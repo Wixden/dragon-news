@@ -1,7 +1,6 @@
 import { Avatar, Dropdown } from "flowbite-react";
 import { Navbar } from "flowbite-react";
-import React, { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const DragonNav = () => {
@@ -45,14 +44,11 @@ const DragonNav = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link className="text-lg font-medium" href="#" active={true}>
-            Asia
+          <Navbar.Link className="text-lg font-medium" href="/" active={true}>
+            Home
           </Navbar.Link>
           <Navbar.Link className="text-lg font-medium" href="#">
-            Global
-          </Navbar.Link>
-          <Navbar.Link className="text-lg font-medium" href="#">
-            Hot Topic
+            About
           </Navbar.Link>
           <Navbar.Link className="text-lg font-medium" href="#">
             Career
