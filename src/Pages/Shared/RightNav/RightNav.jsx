@@ -11,15 +11,34 @@ import bgApp from "../../../assets/images/bg.png";
 import { AuthContext } from "../../../providers/AuthProvider";
 
 const RightNav = () => {
-  const { user, handleLogout } = useContext(AuthContext);
+  const { user, googleSignIn } = useContext(AuthContext);
+
+  const handleGoogleSignIn = (event) => {
+    googleSignIn()
+      .then((res) => {
+        const loggedUser = res.user;
+        console.log(loggedUser);
+        setSuccess("Login successful");
+        setError("");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setSuccess("");
+        return;
+      });
+  };
+
   return (
     <div className="col-span-3 py-4">
       {user ? null : (
         <div>
           <h2 className="text-2xl font-bold text-gray-600 mb-5">Login With</h2>
-          <button className="flex items-center justify-center gap-4 border-2 border-gray-300 rounded py-2 text-lg w-full my-3 hover:text-blue-500 hover:border-blue-500 duration-200">
+          <button
+            className="flex items-center justify-center gap-4 border-2 font-semibold border-gray-300 rounded py-2 text-lg w-full my-3 hover:text-blue-500 hover:border-blue-500 duration-200"
+            onClick={handleGoogleSignIn}
+          >
             <BsGoogle />
-            <p className="font-semibold">Login With Google</p>
+            Login With Google
           </button>
           <button className="flex items-center justify-center gap-4 border-2 border-gray-300 rounded py-2 text-lg w-full my-3 hover:text-blue-500 hover:border-blue-500 duration-200">
             <BsGithub />

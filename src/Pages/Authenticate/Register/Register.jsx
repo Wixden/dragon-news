@@ -1,6 +1,5 @@
 import { Button, Checkbox, Label } from "flowbite-react";
 import React, { useContext, useEffect, useState } from "react";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import Terms from "../../Shared/Terms/Terms";
@@ -25,6 +24,8 @@ const Register = () => {
     const email = form.email.value;
     const photo = form.photo.value;
     const password = form.password.value;
+
+    console.log(name, email, photo, password);
 
     createUser(email, password)
       .then((res) => {
@@ -127,12 +128,12 @@ const Register = () => {
               </a>
             </Label>
           </div>
-          <Button
+          <button
             className="my-2 rounded-md bg-gray-700 text-white text-lg w-full p-3 font-semibold"
             disabled={!acceptTerms}
           >
             Register
-          </Button>
+          </button>
           <div className="text-center mt-0">
             <p>
               Already a member?{" "}

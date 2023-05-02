@@ -16,7 +16,9 @@ const LeftNav = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch(
+      "https://dragon-news-server-itsakhtar-outlookcom.vercel.app/categories"
+    )
       .then((res) => res.json())
       .then((data) => setCategories(data))
       .catch((err) => console.error(err));
@@ -29,7 +31,20 @@ const LeftNav = () => {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             {categories.map((category) => (
-              <Sidebar.Item href={`/category/${category.id}`} key={category.id}>
+              <Sidebar.Item
+                href={`/category/${category.id}`}
+                key={category.id}
+                icon={
+                  (category.name === "All News" && RiPagesFill) ||
+                  (category.name === "Breaking News" && BsFire) ||
+                  (category.name === "Regular News" && FaBars) ||
+                  (category.name === "International News" && BsGlobeAmericas) ||
+                  (category.name === "Sports" && MdSportsEsports) ||
+                  (category.name === "Entertainment" && MdMovieFilter) ||
+                  (category.name === "Culture" && MdNaturePeople) ||
+                  (category.name === "Arts" && GiBlackFlag)
+                }
+              >
                 {category.name}
               </Sidebar.Item>
             ))}

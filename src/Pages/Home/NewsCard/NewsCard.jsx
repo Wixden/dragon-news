@@ -8,8 +8,10 @@ import {
   FaShareAlt,
   FaStar,
 } from "react-icons/fa";
-import Rating from "react-rating";
 import { Link } from "react-router-dom";
+import { Rating } from "@smastrom/react-rating";
+
+import "@smastrom/react-rating/style.css";
 
 const NewsCard = ({ news }) => {
   const {
@@ -71,14 +73,10 @@ const NewsCard = ({ news }) => {
           <div className="mt-2.5 mb-5 flex items-center justify-between">
             <div className="flex">
               <Rating
-                placeholderRating={rating.number}
-                emptySymbol={<FaRegStar></FaRegStar>}
-                fullSymbol={<FaStar></FaStar>}
-                placeholderSymbol={
-                  <FaStar className="text-yellow-300"></FaStar>
-                }
-                readonly
-              ></Rating>
+                style={{ maxWidth: 160, maxHeight: 25 }}
+                value={rating.number}
+                readOnly
+              />
               <span className="mr-2 ml-3 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
                 {rating.number}
               </span>
