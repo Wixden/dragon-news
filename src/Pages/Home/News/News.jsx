@@ -5,7 +5,7 @@ import EditorINsights from "./EditorINsights";
 
 const News = () => {
   const newsData = useLoaderData();
-  console.log(newsData);
+  // console.log(newsData);
   const { title, image_url, details, category_id } = newsData;
 
   return (

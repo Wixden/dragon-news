@@ -18,11 +18,11 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    // console.log(email, password);
     signInUser(email, password)
       .then((res) => {
         const loggedUser = res.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         setSuccess("Login successful");
         setError("");
         form.reset();
@@ -38,7 +38,7 @@ const Login = () => {
     googleSignIn()
       .then((res) => {
         const loggedUser = res.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         setSuccess("Login successful");
         setError("");
       })

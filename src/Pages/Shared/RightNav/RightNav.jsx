@@ -17,7 +17,7 @@ const RightNav = () => {
     googleSignIn()
       .then((res) => {
         const loggedUser = res.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         setSuccess("Login successful");
         setError("");
       })

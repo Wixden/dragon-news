@@ -25,12 +25,12 @@ const Register = () => {
     const photo = form.photo.value;
     const password = form.password.value;
 
-    console.log(name, email, photo, password);
+    // console.log(name, email, photo, password);
 
     createUser(email, password)
       .then((res) => {
         const loggedUser = res.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         setSuccess("Registration successful");
         setError("");
         form.reset();
