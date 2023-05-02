@@ -1,10 +1,12 @@
 import { Avatar, Dropdown } from "flowbite-react";
 import { Navbar } from "flowbite-react";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const DragonNav = () => {
-  const { user } = "";
+  const { user, handleLogout } = useContext(AuthContext);
+
   return (
     <div className="my-5">
       <Navbar fluid={true} rounded={true}>
@@ -23,16 +25,16 @@ const DragonNav = () => {
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">{user.displayName}</span>
+                <span className="block text-sm">{user?.displayName}</span>
                 <span className="block truncate text-sm font-medium">
-                  name@flowbite.com
+                  {user?.email}
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
               <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
             </Dropdown>
           ) : (
             <Link to="/login">

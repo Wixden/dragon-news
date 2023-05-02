@@ -1,13 +1,71 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Login = () => {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const { signInUser, googleSignIn } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+
+  const handleSignInUser = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    signInUser(email, password)
+      .then((res) => {
+        const loggedUser = res.user;
+        console.log(loggedUser);
+        setSuccess("Login successful");
+        setError("");
+        form.reset();
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        setError(err.message);
+        setSuccess("");
+        return;
+      });
+  };
+  const handleGoogleSignIn = (event) => {
+    googleSignIn()
+      .then((res) => {
+        const loggedUser = res.user;
+        console.log(loggedUser);
+        setSuccess("Login successful");
+        setError("");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setSuccess("");
+        return;
+      });
+  };
+
   return (
     <div className="max-w-lg mx-auto my-10 rounded-md border p-10 shadow-md hover:shadow-2xl duration-500">
       <h2 className="text-2xl font-bold text-center mb-8">Login</h2>
-      <form className="flex flex-col gap-4 space-y-3">
+      <form
+        className="flex flex-col gap-4 space-y-3"
+        onSubmit={handleSignInUser}
+      >
+        {error && (
+          <span className="text-center text-orange-400 font-medium border border-orange-400 p-2 rounded">
+            {error}
+          </span>
+        )}
+        {success && (
+          <span className="text-center text-blue-600 font-medium border border-blue-500 p-2 rounded">
+            {success}
+          </span>
+        )}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="email2" value="Your email" />
@@ -18,8 +76,7 @@ const Login = () => {
             type="email"
             name="email"
             placeholder="name@flowbite.com"
-            required={true}
-            shadow={true}
+            required
           />
         </div>
         <div>
@@ -31,9 +88,8 @@ const Login = () => {
             id="password2"
             type="password"
             name="password"
-            required={true}
+            required
             placeholder="******"
-            shadow={true}
           />
         </div>
         <button className="rounded-md bg-gray-700 text-white text-lg w-full p-3 font-semibold">
@@ -51,16 +107,19 @@ const Login = () => {
             <p>or</p>
             <span className="bg-gray-200 h-0.5 w-full"></span>
           </div>
-          <div className="space-y-2">
-            <button className="flex items-center justify-center gap-4 border-2 rounded-md border-gray-300 w-full p-3 font-medium">
-              <FaGoogle className="text-xl" /> Continue With Google
-            </button>
-            <button className="flex items-center justify-center gap-4 border-2 rounded-md border-gray-300 w-full p-3 font-medium">
-              <FaFacebook className="text-xl" /> Continue With Facebook
-            </button>
-          </div>
         </div>
       </form>
+      <div className="space-y-2">
+        <button
+          className="flex items-center justify-center gap-4 border-2 rounded-md border-gray-300 w-full p-3 font-medium"
+          onClick={handleGoogleSignIn}
+        >
+          <FaGoogle className="text-xl" /> Continue With Google
+        </button>
+        <button className="flex items-center justify-center gap-4 border-2 rounded-md border-gray-300 w-full p-3 font-medium">
+          <FaFacebook className="text-xl" /> Continue With Facebook
+        </button>
+      </div>
     </div>
   );
 };
